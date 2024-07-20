@@ -21,7 +21,7 @@ docker compose -f infernet-container-starter/deploy/docker-compose.yaml down
 docker compose -f infernet-container-starter/deploy/docker-compose.yaml up
 
 # my IP
-wget -qO- eth0.me (локальный)
+wget -qO- eth0.me
 curl ifconfig.me (внешний)
 
 # proxy setting
