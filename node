@@ -1,3 +1,42 @@
+# Быстрые команды
+docker restart infernet-anvil
+docker restart hello-world
+docker restart infernet-node
+docker restart deploy-fluentbit-1
+docker restart deploy-redis-1
+
+docker stop infernet-anvil
+docker stop hello-world
+docker stop infernet-node
+docker stop deploy-fluentbit-1
+docker stop deploy-redis-1
+
+docker logs infernet-anvil
+docker logs hello-world
+docker logs infernet-node
+docker logs deploy-fluentbit-1
+docker logs deploy-redis-1
+
+docker compose -f infernet-container-starter/deploy/docker-compose.yaml down
+docker compose -f infernet-container-starter/deploy/docker-compose.yaml up
+
+# my IP
+wget -qO- eth0.me (локальный)
+curl ifconfig.me (внешний)
+
+# proxy setting
+export http_proxy="http://FJKNF:FKLJE6JK@11.111.111.111:47040" (login:pass@ip:port)
+
+#проверка прокси
+env | grep -i proxy
+
+#удалить прокси
+unset http_proxy
+
+===========================================
+===========================================
+===========================================
+
 #1 Подготовка сервера
 
 # Обновляем
