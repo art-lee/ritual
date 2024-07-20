@@ -1,0 +1,156 @@
+#1 Подготовка сервера
+
+# Обновляем
+sudo apt update && sudo apt upgrade -y
+
+# Устанавливаем тулзы
+sudo apt install -y curl git jq lz4 build-essential unzip
+
+# Установка Docker и Docker Compose
+sudo apt install -y ca-certificates curl gnupg lsb-release 
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
+echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+sudo apt update && sudo apt install -y docker-ce docker-ce-cli containerd.io
+sudo usermod -aG docker $USER
+newgrp docker
+
+Офф гайд: https://ritual.academy/nodes/setup/
+
+#5 Starter Repository
+
+# Clone locally:
+git clone https://github.com/ritual-net/infernet-container-starter
+
+# Navigate to the repository
+cd infernet-container-starter
+
+#6 Running hello-world
+screen -S ritual
+project=hello-world make deploy-container
+#CTRL + A + D
+
+#7 Node Configuration
+nano ~/infernet-container-starter/deploy/config.json
+nano ~/infernet-container-starter/projects/hello-world/container/config.json
+
+#RPC URL: https://base-rpc.publicnode.com/
+#Private Key: Enter your private key (throwaway wallet). Add “0x” to your key if it does not start with 0x.
+#Registry: Check https://docs.ritual.net/infernet/sdk/introduction#deployed-contracts, at the moment it is this address 0x3B1554f346DFe5c482Bb4BA31b880c1C18412170
+#Version number: Change to "image": "ritualnetwork/hello-world-infernet:1.0.0",
+
+"snapshot_sync": {
+  "sleep": 5,
+  "batch_size": 50
+},
+
+#Now change RPC, registry, and private key:
+nano ~/infernet-container-starter/projects/hello-world/container/config.json
+
+#Then change registry address:
+nano ~/infernet-container-starter/projects/hello-world/contracts/script/Deploy.s.sol
+
+#Update sender’s address with your private key, change RPC
+nano ~/infernet-container-starter/projects/hello-world/contracts/Makefile
+
+#Optimization Trick
+Feel free to add a auto restart functionality to your Infernet node via:
+restart: on-failure in
+nano ~/infernet-container-starter/deploy/docker-compose.yaml
+
+#8 Initialize Configuration (2 session)
+docker restart infernet-anvil
+docker restart hello-world
+docker restart infernet-node
+docker restart deploy-fluentbit-1
+docker restart deploy-redis-1
+
+# Logs
+docker logs <CONTAINER ID>
+docker logs infernet-node
+
+#9 Install Foundry
+
+# Change to home directory:
+cd
+
+# Create a new folder:
+mkdir foundry
+
+# Navigate into it:
+cd foundry
+
+# Execute the script from Foundry's official source
+curl -L https://foundry.paradigm.xyz | bash
+
+# Update your shell configuration by sourcing the .bashrc file
+source ~/.bashrc
+
+# Run foundryup to ensure Foundry is fully installed:
+foundryup
+
+==
+# We then install the necessary dependencies by navigating into the directory of the contract and installing required libraries and SDKs:
+
+# Navigate to the contracts directory:
+cd ~/infernet-container-starter/projects/hello-world/contracts
+
+# Install the forge-std library:
+forge install --no-commit foundry-rs/forge-std
+
+# Install the infernet-sdk:
+forge install --no-commit ritual-net/infernet-sdk
+
+# Go to the directory three levels up:
+cd ../../../
+
+# Troubleshooting
+# Error: git submodule exited with code 128
+
+rm -rf projects/hello-world/contracts/lib/forge-std
+forge install --no-commit foundry-rs/forge-std
+cd ~/infernet-container-starter/projects/hello-world/contracts
+rm -rf lib/forge-std
+forge install --no-commit foundry-rs/forge-std
+ls lib/forge-std
+
+# Error: Troubleshooting (“SDK Already Exists”)
+cd ~/infernet-container-starter/projects/hello-world/contracts
+rm -rf lib/infernet-sdk
+forge install --no-commit ritual-net/infernet-sdk
+ls lib/infernet-sdk
+
+#10 Deploy Consumer Contract (3 session)
+docker logs infernet-node
+
+#Next, we can deploy a consumer contract that will interact with the Infernet SDK. To do this, we are using the SaysGM example by Ritual. 
+It is designed to request a compute output from your node and prints the compute result. To deploy SaysGM, 
+enter your second terminal session and enter this command:
+
+# Navigate to the repository:
+cd ~/infernet-container-starter
+# Deploy the SaysGM contract:
+project=hello-world make deploy-contracts
+
+#Сохранить адрес контракта и хэш
+
+#11 Call Contract
+
+#Edit your CallContract.s.sol file by inserting the new contract address. 
+The preconfigured address is SaysGM saysGm = SaysGM(0x13D69Cf7d6CE4218F646B759Dcf334D82c023d8e), 
+change it to the address that was generated when calling SaysGM:
+
+nano ~/infernet-container-starter/projects/hello-world/contracts/script/CallContract.s.sol
+
+#Switch back to your second terminal session and initiate a new request for the Infernet Node:
+project=hello-world make call-contract
+
+#12 Register On-Chain
+#Can now register and activate your node.
+1) Log into your MetaMask wallet.
+2) Go to coordinator contract on Basescan.
+3) Register node by entering your wallet address in section 8. Register Node and clicking on Write and confirming the transaction.
+Wait for 1 hour
+4) Activate node by entering your wallet address in 1. Activate Node, click on Write and confirm the transaction.
+
+
+https://basescan.org
