@@ -82,9 +82,6 @@ nano ~/infernet-container-starter/projects/hello-world/container/config.json
   "batch_size": 50
 },
 
-#Now change RPC, registry, and private key:
-nano ~/infernet-container-starter/projects/hello-world/container/config.json
-
 #Then change registry address:
 nano ~/infernet-container-starter/projects/hello-world/contracts/script/Deploy.s.sol
 
