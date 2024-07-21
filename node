@@ -183,7 +183,7 @@ project=hello-world make call-contract or cd ~/infernet-container-starter/projec
 #12 Register On-Chain
 #Can now register and activate your node.
 1) Log into your MetaMask wallet.
-2) Go to coordinator contract on Basescan.
+2) Go to coordinator contract on Basescan: https://basescan.org/address/0x8d871ef2826ac9001fb2e33fdd6379b6aabf449c#writeContract
 3) Register node by entering your wallet address in section 8. Register Node and clicking on Write and confirming the transaction.
 Wait for 1 hour
 4) Activate node by entering your wallet address in 1. Activate Node, click on Write and confirm the transaction.
