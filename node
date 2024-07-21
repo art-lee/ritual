@@ -25,7 +25,8 @@ wget -qO- eth0.me
 curl ifconfig.me (внешний)
 
 # proxy setting
-export http_proxy="http://FJKNF:FKLJE6JK@11.111.111.111:47040" (login:pass@ip:port)
+sudo nano /etc/environment
+http_proxy="http://FJKNF:FKLJE6JK@11.111.111.111:47040" (login:pass@ip:port)
 
 #проверка прокси
 env | grep -i proxy
