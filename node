@@ -13,7 +13,7 @@ docker stop deploy-redis-1
 
 docker logs infernet-anvil
 docker logs hello-world
-docker logs infernet-node
+docker logs infernet-node --tail 100
 docker logs deploy-fluentbit-1
 docker logs deploy-redis-1
 
