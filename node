@@ -178,8 +178,9 @@ change it to the address that was generated when calling SaysGM:
 
 nano ~/infernet-container-starter/projects/hello-world/contracts/script/CallContract.s.sol
 
-#Switch back to your 2 session terminal session and initiate a new request for the Infernet Node:
-project=hello-world make call-contract or cd ~/infernet-container-starter/projects/hello-world/contracts
+#Switch back to your 2 session terminal session (or cd ~/infernet-container-starter/projects/hello-world/contracts) 
+#and initiate a new request for the Infernet Node:
+project=hello-world make call-contract
 
 #12 Register On-Chain
 #Can now register and activate your node.
