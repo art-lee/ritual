@@ -192,3 +192,8 @@ Wait for 1 hour
 
 
 https://basescan.org
+
+#12 Stop/Del infernet-anvil
+docker ps -a
+docker stop infernet-anvil
+docker rm [CONTAINER ID]
