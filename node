@@ -1,9 +1,9 @@
 # Быстрые команды
 docker restart infernet-anvil
 docker restart hello-world
-docker restart infernet-node
 docker restart deploy-fluentbit-1
 docker restart deploy-redis-1
+docker restart infernet-node
 
 docker stop infernet-anvil
 docker stop hello-world
@@ -97,13 +97,13 @@ nano ~/infernet-container-starter/deploy/docker-compose.yaml
 #8 Initialize Configuration (2 session)
 docker restart infernet-anvil
 docker restart hello-world
-docker restart infernet-node
 docker restart deploy-fluentbit-1
 docker restart deploy-redis-1
+docker restart infernet-node
 
 # Logs
 docker logs <CONTAINER ID>
-docker logs infernet-node
+docker logs infernet-node --tail 100
 
 #9 Install Foundry
 
