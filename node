@@ -54,7 +54,7 @@ sudo apt update && sudo apt install -y docker-ce docker-ce-cli containerd.io
 sudo usermod -aG docker $USER
 newgrp docker
 
-Офф гайд: https://ritual.academy/nodes/setup/
+#Офф гайд: https://ritual.academy/nodes/setup/
 
 #5 Starter Repository
 
@@ -90,8 +90,8 @@ nano ~/infernet-container-starter/projects/hello-world/contracts/script/Deploy.s
 nano ~/infernet-container-starter/projects/hello-world/contracts/Makefile
 
 #Optimization Trick
-Feel free to add a auto restart functionality to your Infernet node via:
-restart: on-failure in
+#Feel free to add a auto restart functionality to your Infernet node via:
+#restart: on-failure in
 nano ~/infernet-container-starter/deploy/docker-compose.yaml
 
 #8 Initialize Configuration (2 session)
