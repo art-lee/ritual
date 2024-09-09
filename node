@@ -20,6 +20,9 @@ docker logs deploy-redis-1
 docker compose -f infernet-container-starter/deploy/docker-compose.yaml down
 docker compose -f infernet-container-starter/deploy/docker-compose.yaml up
 
+# mac адрес (1 строчка кабель, 2 строчка wifi)
+ip a | grep ether
+
 # my IP
 wget -qO- eth0.me
 curl ifconfig.me (внешний)
