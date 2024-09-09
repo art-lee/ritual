@@ -11,6 +11,7 @@ nano /etc/docker/daemon.json
   }
 }
 
+systemctl restart docker
 
 # Быстрые команды
 docker restart infernet-anvil
